@@ -2,9 +2,30 @@ doctype html
 html(lang='en')
   head
     meta(charset='utf-8')
-    title Prototype
+    title Bank App
     link(rel='stylesheet', href='/style.css')
+    link(rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
+    link(rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css')
   body
-    h1 Hello, World
+    h1 Bank App
+    .container
+      .row
+        h2#balance
+        h3 Add amount to deposit or withdraw
+        input(type='number' id='amount' placeholder='$')
+        button#deposits Deposit
+        button#withdrawals Withdraw
+    .container
+      h3 Account Status    
+      .row
+        .col-md-4
+          ul#dep Deposits
+        .col-md-4
+          ul#wit Withdrawals
+        .col-md-4 
+          ul#debts Debts
+      
+    script(src='https://cdn.firebase.com/js/client/2.2.1/firebase.js')
     script(src='/vendor/jquery/dist/jquery.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
     script(src='/main.js')
