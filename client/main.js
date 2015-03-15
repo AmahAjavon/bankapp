@@ -50,13 +50,10 @@ $(function() {
     display(debtTask.debts, debtTask.date, 'debts');
   });
 
-
-
-  function display(amount, date, type) {
+  function display(amount, date, id) {
     var $td = $('<li>');
-    // $td.addClass(type);
     $td.text('$' + amount + ' on: ' + date);
-    $('#'+type).append($td);
+    $('#'+id).append($td);
 
 
   }
