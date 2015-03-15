@@ -12,9 +12,7 @@ $(function() {
     var date = new Date().toDateString();
     depDataRef.push({amount: amount, date: date});
     balance += parseInt(amount);
-    $('#balance').html('Balance is $' + balance);
-    balDataRef.update({balances: balance});
-
+    balDataRef.update({balance: balance});
   });
 
   $('#withdrawals').click(function() {
@@ -22,68 +20,44 @@ $(function() {
     var date = new Date().toDateString();
     withDataRef.push({amount: amount, date: date});
     balance -= parseInt(amount);
-    $('#balance').html('Balance is $' + balance);
-    balDataRef.update({balances: balance});
-    var debts = -50;
+    var debts = 0;
     if (balance < 0) {
-      balance -= 50;
-      var $debt = $('<li>');
-      $debt.addClass('.debt');
-      $debt.text('Fee: $' + debts + ' on: ' + date);
-      $('#debts').append($debt);
-      debtDataRef.push({debts: debts});
-      debtDataRef.update({debts: debts});
+      debts = -50;
+      balance += debts;
+      debtDataRef.push({debts: debts, date: date});
     }
+    balDataRef.update({balance: balance});
   });
+
+  balDataRef.on('value', function(data) {
+     var balTask = data.val();
+     console.log(balTask);
+     $('#balance').html('Balance is $' + balTask.balance);
+  })
 
   depDataRef.on('child_added', function(data) {
     var depositTask = data.val();
-    displayDepTask(depositTask.amount, depositTask.date);
+    display(depositTask.amount, depositTask.date, 'dep');
   });
 
   withDataRef.on('child_added', function(data) {
     var withdrawTask = data.val();
-    displayWithTask(withdrawTask.amount, withdrawTask.date);
-
+    display(withdrawTask.amount, withdrawTask.date, 'with');
   });
 
-  // balDataRef.on('child_added', function(data) {
-  //   var balanceTask = data.val();
-  //   displayBalTask(balanceTask.balance);
-  //
-  // });
-  //
-  // debtDataRef.on('child_added', function(data) {
-  //   var debtTask = data.val();
-  //   displayDebtTask(debtTask.debts, debtTask.date);
-  //
-  // });
+  debtDataRef.on('child_added', function(data) {
+    var debtTask = data.val();
+    display(debtTask.debts, debtTask.date, 'debts');
+  });
 
-  function displayDepTask(amount, date) {
+
+
+  function display(amount, date, type) {
     var $td = $('<li>');
-    $td.addClass('.dep');
+    // $td.addClass(type);
     $td.text('$' + amount + ' on: ' + date);
-    $('#dep').append($td);
-  }
+    $('#'+type).append($td);
 
-  function displayWithTask(amount, date) {
-    var $td2 = $('<li>');
-    $td2.addClass('.with');
-    $td2.text('$' + amount + ' on: ' + date);
-    $('#wit').append($td2);
 
   }
-
-  // function displayBalTask(balance) {
-  //
-  //
-  // }
-  //
-  // function displayDebtTask(debts, date) {
-  //
-  //
-  // }
-
-
-
 })

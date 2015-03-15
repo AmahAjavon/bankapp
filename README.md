@@ -1,1 +1,1 @@
-Bank App made with Jade, LESS, Javascript, using Firebase. The user can make deposits, withdrawals with the appropriate dates, and also check the cash balance. When the balance is negative, the user is charged with a $50 fee every time he makes another withdrawal. 
+Bank App made with Jade, LESS, Javascript, using Firebase. The user can make deposits, withdrawals with the appropriate dates, and also check the cash balance. When the balance is negative, the user is charged with a $50 fee every time he makes another withdrawal.
